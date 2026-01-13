@@ -15,10 +15,7 @@
 - JWT Authentication
 - node-cron
 
-## Setup
-
-### Backend
-```bash
-cd backend
-npm install
-npm run dev
+## Hosted At (https://mern-investment.netlify.app/)
+- https://mern-investment.netlify.app/
+- Test User Id - test@example.com
+- Test User Pass - 123456
