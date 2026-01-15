@@ -9,7 +9,7 @@ import {
 
 export default function ROIChart({ data }) {
   // Guard: no or insufficient data
-  if (!data || data.length < 2) {
+  if (!data || data.length === 0) {
     return (
       <div className="h-40 flex items-center justify-center text-sm text-slate-500">
         ROI data will appear after multiple days
@@ -45,9 +45,10 @@ export default function ROIChart({ data }) {
           dataKey="roi"
           stroke="#4f46e5"
           strokeWidth={2}
-          dot={{ r: 3 }}
+          dot={{ r: data.length === 1 ? 6 : 3 }}
           activeDot={{ r: 6 }}
         />
+
       </LineChart>
     </ResponsiveContainer>
   );
