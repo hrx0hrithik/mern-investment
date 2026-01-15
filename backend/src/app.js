@@ -4,6 +4,7 @@ import authRoutes from "./routes/auth.routes.js";
 import investmentRoutes from "./routes/investment.routes.js";
 import dashboardRoutes from "./routes/dashboard.routes.js";
 import referralRoutes from "./routes/referral.routes.js";
+import roiRoutes from "./routes/roi.routes.js";
 import { errorHandler } from "./middlewares/error.middleware.js"
 
 const app = express();
@@ -29,6 +30,8 @@ app.use("/api/investments", investmentRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 
 app.use("/api/referrals", referralRoutes);
+
+app.use("/api", roiRoutes);
 
 app.use(errorHandler);
 
