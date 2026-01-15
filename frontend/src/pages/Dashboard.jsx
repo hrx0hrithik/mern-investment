@@ -17,27 +17,29 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [openCreate, setOpenCreate] = useState(false);
   const [error, setError] = useState(null);
+  const [roiData, setRoiData] = useState([]);
 
-  const fetchDashboard = async () => {
-    try {
-      setLoading(true);
-      setError(null);
+const fetchDashboard = async () => {
+  try {
+    setLoading(true);
+    setError(null);
 
-      const [dashboardRes, treeRes] = await Promise.all([
-        getDashboard(),
-        getReferralTree()
-      ]);
+    const [dashboardRes, treeRes, roiRes] = await Promise.all([
+      getDashboard(),
+      getReferralTree(),
+      getDailyROI() // ✅ now actually called
+    ]);
 
-      setData(dashboardRes.data);
-      setTree(treeRes.data);
-    } catch (err) {
-      console.error(err);
-      setError("Failed to load dashboard data. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
+    setData(dashboardRes.data);
+    setTree(treeRes.data);
+    setRoiData(roiRes.data);
+  } catch (err) {
+    console.error(err);
+    setError("Failed to load dashboard data. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     fetchDashboard();
@@ -78,10 +80,7 @@ export default function Dashboard() {
   }
 
   /* ---------- Derived Data (safe now) ---------- */
-  const roiChartData = data.investments.map((inv, i) => ({
-    date: `Day ${i + 1}`,
-    roi: (inv.amount * inv.roiPercent) / 100
-  }));
+const roiChartData = roiData;
 
   return (
     <div className="min-h-screen bg-slate-100">

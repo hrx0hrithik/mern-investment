@@ -27,10 +27,16 @@ export default function InvestmentTable({ investments }) {
                 ID
               </th>
               <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 uppercase">
+                Plan
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 uppercase">
                 Amount
               </th>
               <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 uppercase">
                 ROI %
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 uppercase">
+                ROI Earned
               </th>
               <th className="px-6 py-3 text-left text-xs font-semibold text-slate-600 uppercase">
                 Status
@@ -43,13 +49,15 @@ export default function InvestmentTable({ investments }) {
 
           <tbody className="divide-y divide-slate-100">
             {investments.map(inv => (
-              <tr
-                key={inv._id}
-                className="hover:bg-slate-50 transition"
-              >
+              <tr key={inv._id} className="hover:bg-slate-50 transition">
                 {/* ID */}
                 <td className="px-6 py-4 text-sm font-medium text-slate-700">
                   #{inv._id.slice(-6)}
+                </td>
+
+                {/* Plan Name */}
+                <td className="px-6 py-4 text-sm text-slate-700 font-medium">
+                  {inv.plan}
                 </td>
 
                 {/* Amount */}
@@ -57,24 +65,27 @@ export default function InvestmentTable({ investments }) {
                   ₹{inv.amount.toLocaleString()}
                 </td>
 
-                {/* ROI */}
+                {/* ROI % */}
+                <td className="px-6 py-4 text-sm font-semibold text-indigo-600">
+                  {inv.roiPercent}%
+                </td>
+
+                {/* Individual ROI */}
                 <td className="px-6 py-4 text-sm font-semibold text-emerald-600">
-                  +{inv.roiPercent}%
+                  ₹{((inv.amount * inv.roiPercent) / 100).toLocaleString()}
                 </td>
 
                 {/* Status */}
                 <td className="px-6 py-4">
                   {inv.status === "ACTIVE" ? (
-                    <span className="inline-flex items-center gap-1
-                                     px-3 py-1 rounded-full text-xs font-medium
-                                     bg-emerald-100 text-emerald-700">
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full
+                       text-xs font-medium bg-emerald-100 text-emerald-700">
                       <CheckCircle size={14} />
                       Active
                     </span>
                   ) : (
-                    <span className="inline-flex items-center gap-1
-                                     px-3 py-1 rounded-full text-xs font-medium
-                                     bg-slate-100 text-slate-600">
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full
+                       text-xs font-medium bg-slate-100 text-slate-600">
                       <Clock size={14} />
                       Pending
                     </span>
