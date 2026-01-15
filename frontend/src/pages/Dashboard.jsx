@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getDashboard, getReferralTree } from "../api/dashboard.api";
+import { getDailyROI, getDashboard, getReferralTree } from "../api/dashboard.api";
 import StatsCards from "../components/StatsCards";
 import InvestmentTable from "../components/InvestmentTable";
 import ReferralTree from "../components/ReferralTree";
@@ -27,7 +27,7 @@ const fetchDashboard = async () => {
     const [dashboardRes, treeRes, roiRes] = await Promise.all([
       getDashboard(),
       getReferralTree(),
-      getDailyROI() // ✅ now actually called
+      getDailyROI()
     ]);
 
     setData(dashboardRes.data);
